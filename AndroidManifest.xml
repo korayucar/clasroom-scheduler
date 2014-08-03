@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.kondi.android.classroomscheduler">
+
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="19"/>
+ 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.mail"/>
+    <permission android:name="com.kondi.android.classroomscheduler.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+
+   <uses-permission android:name="com.kondi.android.classroomscheduler.permission.C2D_MESSAGE"/>
+   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+   <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name">
+       
+         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <activity android:label="@string/app_name" android:name="com.kondi.android.classroomscheduler.MainActivity"> 
+                
+        </activity>
+        
+         <activity android:label="@string/app_name" android:name="com.kondi.android.classroomscheduler.AssignColorActivity"> 
+             
+        </activity>
+        
+           <activity android:label="@string/app_name" android:name="com.kondi.android.classroomscheduler.attendance.AttendanceActivity"> 
+             
+        </activity>
+         <activity android:label="@string/app_name" android:name="com.kondi.android.classroomscheduler.calendar.AllInOneActivity">
+               <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+          <activity android:label="@string/app_name" android:name="com.kondi.android.classroomscheduler.TrialActivity">
+           <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+            <activity android:name="com.kondi.android.classroomscheduler.calendar.EventInfoActivity" android:parentActivityName="com.kondi.android.classroomscheduler.calendar.AllInOneActivity" android:theme="@style/CalendarTheme.WithActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="vnd.android.cursor.item/event"/>
+            </intent-filter>
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.kondi.android.classroomscheduler.calendar.AllInOneActivity"/>
+        </activity>
+
+        <activity android:name="com.kondi.android.classroomscheduler.calendar.event.EditEventActivity" android:theme="@style/CalendarTheme.WithActionBar">
+        </activity>
+
+        <activity-alias android:exported="true" android:name="EditEventActivity" android:targetActivity="com.kondi.android.classroomscheduler.calendar.event.EditEventActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT"/>
+                <action android:name="android.intent.action.INSERT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="vnd.android.cursor.item/event"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT"/>
+                <action android:name="android.intent.action.INSERT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="vnd.android.cursor.dir/event"/>
+            </intent-filter>
+        </activity-alias>
+
+        <activity android:configChanges="orientation|keyboardHidden" android:label="@string/app_label" android:name="GoogleCalendarUriIntentFilter" android:theme="@android:style/Theme.NoDisplay">
+
+            <intent-filter android:priority="50">
+               <action android:name="android.intent.action.VIEW"/>
+               <category android:name="android.intent.category.DEFAULT"/>
+               <category android:name="android.intent.category.BROWSABLE"/>
+               <data android:host="www.google.com" android:pathPrefix="/calendar/event" android:scheme="http"/>
+               <data android:host="www.google.com" android:pathPrefix="/calendar/event" android:scheme="https"/>
+               <data android:host="www.google.com" android:pathPattern="/calendar/hosted/.*/event" android:scheme="http"/>
+               <data android:host="www.google.com" android:pathPattern="/calendar/hosted/.*/event" android:scheme="https"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:label="@string/select_visible_calendars_title" android:name="com.kondi.android.classroomscheduler.calendar.selectcalendars.SelectVisibleCalendarsActivity" android:theme="@android:style/Theme.Holo.Light"/>
+
+        <activity android:label="@string/select_synced_calendars_title" android:name="com.kondi.android.classroomscheduler.calendar.selectcalendars.SelectSyncedCalendarsMultiAccountActivity" android:theme="@android:style/Theme.Holo.Light"/>
+
+        <activity android:label="@string/preferences_title" android:name="com.kondi.android.classroomscheduler.calendar.CalendarSettingsActivity" android:theme="@android:style/Theme.Holo.Light"/>
+
+        <!-- Declarations for search -->
+        <!-- Make all activities a searchable context -->
+        <meta-data android:name="android.app.default_searchable" android:value="com.kondi.android.classroomscheduler.calendar.SearchActivity"/>
+
+        <activity android:exported="true" android:label="@string/search_title" android:launchMode="singleTop" android:name="com.kondi.android.classroomscheduler.calendar.SearchActivity" android:theme="@style/CalendarTheme.WithActionBar" android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
+        </activity>
+
+        
+        <!-- Declarations for alerts/reminders -->
+        <activity android:excludeFromRecents="true" android:launchMode="singleInstance" android:name="com.kondi.android.classroomscheduler.calendar.alerts.AlertActivity" android:theme="@android:style/Theme.Holo.Dialog"/>
+
+        <activity android:excludeFromRecents="true" android:label="@string/quick_response_dialog_title" android:launchMode="singleInstance" android:name="com.kondi.android.classroomscheduler.calendar.alerts.QuickResponseActivity" android:theme="@android:style/Theme.Holo.Dialog"/>
+
+        <activity android:excludeFromRecents="true" android:launchMode="singleInstance" android:name="com.kondi.android.classroomscheduler.calendar.alerts.SnoozeDelayActivity" android:theme="@android:style/Theme.Holo.Dialog"/>
+         
+            <receiver android:name="com.kondi.android.classroomscheduler.calendar.alerts.AlertReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.EVENT_REMINDER"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <data android:scheme="content"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PROVIDER_CHANGED"/>
+                <data android:scheme="content"/>
+                <data android:host="com.kondi.android.classroomscheduler"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:exported="false" android:name="com.kondi.android.classroomscheduler.calendar.alerts.GlobalDismissManager"/>
+
+        <service android:name="com.kondi.android.classroomscheduler.calendar.alerts.AlertService"/>
+
+        <service android:name="com.kondi.android.classroomscheduler.calendar.alerts.DismissAlarmsService"/>
+
+        <service android:name="com.kondi.android.classroomscheduler.calendar.alerts.SnoozeAlarmsService"/>
+
+        <service android:name="com.kondi.android.classroomscheduler.calendar.alerts.InitAlarmsService"/>
+         
+         <service android:name="com.kondi.android.classroomscheduler.calendar.AsyncQueryServiceHelper"/>
+        <service android:name=".GCMIntentService"/>
+        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="com.kondi.android.classroomscheduler"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="com.kondi.android.classroomscheduler"/>
+            </intent-filter>
+        </receiver>
+    
+        <activity android:launchMode="singleTop" android:name=".RegisterActivity"/>
+</application>
+
+</manifest>
